@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y \
 
 #COPY . .
 
-RUN chmod 777 -R ./
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -27,3 +26,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin
 
 WORKDIR /var/www
+
+RUN chmod 777 -R /var/www
