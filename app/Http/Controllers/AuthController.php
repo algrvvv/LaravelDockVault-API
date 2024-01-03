@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,7 @@ class AuthController extends Controller
     public function user(): JsonResponse
     {
         return response()->json([
-            "data" => auth()->user()
+            "data" => new UserResource(auth()->user())
         ])->header('Content-Type', 'application/json');
     }
 
@@ -54,15 +55,9 @@ class AuthController extends Controller
         $token_parts = explode('.', $token);
         return response()->json([
             "data" => [
-                "token" => [
-                    "token" => $token,
-                    "type" => 'bearer',
-                    "expires_in" => auth()->factory()->getTTL() * 60
-                ],
-                "info" => [
-                    "header" => base64_decode($token_parts[0]),
-                    "payload" => base64_decode($token_parts[1]),
-                ]
+                "token"      => $token,
+                "type"       => 'bearer',
+                "expires_in" => auth()->factory()->getTTL() * 60
             ]
         ])->header('Content-Type', 'application/json');
     }
