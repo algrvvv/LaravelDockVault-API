@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\v1\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,7 @@ Route::middleware("auth:api")->group(function () {
         Route::post('/refresh', 'refresh');
     });
 
-    Route::get('/test', function () {
-        return response()->json([
-            "message" => "здесь только наши люди"
-        ]);
-    });
+    Route::apiResource('/movies', MovieController::class);
 });
 
 Route::fallback(function () {
