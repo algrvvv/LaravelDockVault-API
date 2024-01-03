@@ -40,16 +40,22 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(MovieUpdateRequest $request, Movie $movie)
+    public function update(MovieUpdateRequest $request, Movie $movie): MovieResource
     {
-        //
+        $movie->update($request->all());
+
+        return new MovieResource($movie);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Movie $movie): JsonResponse
     {
-        //
+        $movie->delete();
+
+        return response()->json([
+            "data" => "Successfully deleted"
+        ]);
     }
 }
