@@ -24,16 +24,17 @@ LaravelDockVault-API - простенький REST API на основе Laravel
 
 ## Установка
 
-> ВАЖНО ОТМЕТИТЬ! <br>
-> Если вы запускаете проект с ОС WINDOWS, то скорее всего
-> у вас будет достаточная задержка между запросам и командами artisan.
-> Решением использование WSL и развертывание проект там
+> ВАЖНО ОТМЕТИТЬ!
+
+Если вы запускаете проект с ОС WINDOWS, то скорее всего
+у вас будет достаточная задержка между запросам и командами artisan.
+Решением будет использование WSL и развертывание проект там
 
 ```bash
 $ git clone https://github.com/algrvvv/LaravelDockVault-API.git
 $ cd LaravelDockVault-API
 $ cp .env.example .env
-$ docker compose up --build -d
+$ docker compose up -d
 ```
 
 Сам сервер находиться по адресу: `localhost:8876`.
@@ -74,6 +75,16 @@ $ php artisan migrate
 # заполнение бд с помощью фабрик
 $ php artisan migrate --seed
 ```
+
+После этого у вас может появиться ошибка<br>
+`The stream or file /logs/laravel.log could not be opened ...`
+<br> В таком случае будет достаточно просто изменить права
+
+```bash
+$ chmod 777 -R ./storage
+```
+Если после этого у вас появиться ошибка с генерацией ключа приложения,
+то просто перезапустите контейнер.
 
 ## Подключение к базе данных
 
