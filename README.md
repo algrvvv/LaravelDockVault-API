@@ -125,11 +125,14 @@ GET http://localhost:8876/api/auth/login
 После этого вам будет выдан JWT токен, а вместе с ним доступ
 к следующим запросам:
 
-| Method |       Path       | Action  |         Description         |
-|:------:|:----------------:|:-------:|:---------------------------:|
-|  GET   |   /api/movies    |  index  |     Вывод всех фильмов      |
-|  GET   | /api/movies/{id} |  show   |    Вывод фильма по айди     |
-|  POST  |   /api/movies    |  store  |      Добавление фильма      |
-| PATCH  | /api/movies/{id} | update  | Частичное обновление данных |
-|  PUT   | /api/movies/{id} | update  |  Полное обновление данных   |
-| DELETE | /api/movies/{id} | destroy |       Удаление фильма       |
+| Method |       Path        | Action  |           Description           |
+|:------:|:-----------------:|:-------:|:-------------------------------:|
+|  GET   |  /api/auth/user   |  user   | Вывод информации о пользователе |
+|  POST  | /api/auth/refresh | refresh |        Обновление токена        |
+|  POST  | /api/auth/logout  | logout  |        Выход из аккаунта        |
+|  GET   |    /api/movies    |  index  |       Вывод всех фильмов        |
+|  GET   | /api/movies/{id}  |  show   |      Вывод фильма по айди       |
+|  POST  |    /api/movies    |  store  |        Добавление фильма        |
+| PATCH  | /api/movies/{id}  | update  |   Частичное обновление данных   |
+|  PUT   | /api/movies/{id}  | update  |    Полное обновление данных     |
+| DELETE | /api/movies/{id}  | destroy |         Удаление фильма         |
