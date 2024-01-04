@@ -34,4 +34,7 @@ services:
             POSTGRES_USER: postgres
             POSTGRES_DB: postgres
         volumes:
-            - ./dump/db:/var/lib/postgres
+            - database:/var/lib/postgres
+
+volumes:
+    database:
