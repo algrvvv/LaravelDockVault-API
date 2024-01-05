@@ -33,10 +33,64 @@ LaravelDockVault-API - простенький REST API на основе Laravel
 ```bash
 $ git clone https://github.com/algrvvv/LaravelDockVault-API.git
 $ cd LaravelDockVault-API
- # если win
-$ ./setup-docker.bat
- # если linux
-$ ./setup-docker.sh
+$ cp .env.example .env
+$ docker compose up -d
+```
+
+Сам сервер находиться по адресу: `localhost:8876`.
+
+Чтобы перенести миграции воспользуйтесь:
+
+Переход в консоль в контейнере php:
+```bash
+$ make php
+# либо напишите
+$ docker exec -it ldv_app bash
+```
+
+Затем:
+
+```bash
+$ composer install
+$ php artisan key:generate
+$ php artisan cache:clear && php artisan config:clear 
+```
+В файле `.env` DB_HOST должен быть равен названию контейнера с бд.
+По умолчанию `ldv_db`, поэтому его можно не трогать.
+
+```dotenv
+DB_CONNECTION=pgsql
+DB_HOST=ldv_db
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+```
+
+```bash
+# генерация secret для JWT
+$ php artisan jwt:secret
+# перенос миграций
+$ php artisan migrate
+# заполнение бд с помощью фабрик
+$ php artisan migrate --seed
+```
+
+После этого у вас может появиться ошибка<br>
+`The stream or file /logs/laravel.log could not be opened ...`
+<br> В таком случае будет достаточно просто изменить права
+
+```bash
+$ chmod 777 -R ./storage
+```
+Если после этого у вас появиться ошибка с генерацией ключа приложения,
+то просто перезапустите контейнер.
+
+```bash
+docker compose restart
+# либо
+docker compose down
+docker compose up -d
 ```
 
 ## Подключение к базе данных
